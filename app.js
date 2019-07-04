@@ -79,12 +79,16 @@ function displayCart(){
 //checkout page --------Jerry
 function checkout(){
      header('CHECKOUT')
-     //nothingo
 }
 
 //add product to cart --------Victor
-function addToCart(){
-     header('ADD TO CART')
+function addToCart(indexOfProduct, quantity){
+     header('ADD TO CART') // This displays add to cart
+     if(indexOfProduct < products.length && indexOfProduct > 1){
+          var product = {"id" : indexOfProduct, "name" : product[indexOfProduct -1], "price" : product[indexOfProduct].price, "quantity": quantity, "total": (quantity * price)}
+          
+
+     }
 }
 
 //remove product from Cart --------Victor
