@@ -13,7 +13,9 @@ const products = [
 ]
 
 //cart array
-const cart = [];
+const cart = [ {"id" : 1, "name" : "milo", "price" : 350},
+{"id" : 2, "name" : "bread", "price" : 150 },
+{"id" : 3, "name" : "milk", "price" : 50},];
 
 //page header
 function header (title, msg){
@@ -75,8 +77,40 @@ function displayCart(msg){
 }
 
 //checkout page --------Jerry
-function checkout(msg){
+function checkout( msg){
      header('CHECKOUT', msg)
+     if(cart.length === 0) {
+          console.log("You have no item in Cart");
+          console.log("1","Add Item(s) to Cart")
+          console.log("2","Go Back to home")
+          prompt.question("Please select an option to proceed: ", (options) => {
+               if(options == 1){
+                    displayProducts('');
+               } else if(options == 2){
+                    home('');
+               } else {
+                    checkout("Invalid input ! 🙃");
+               }
+          })
+     } else {
+          console.table(cart);
+          console.log("1","Proceed to make payment")
+          console.log("2","Go Back to Cart")
+          console.log("3","Cancel payment and Return Home")
+          prompt.question("Please Select an option: ", (options) => {
+               if(options == 1){
+                    cardDetails('');
+               } else if(options == 2){
+                    //Go back to cart to add to cart
+                    displayProducts('');
+               } else if(options == 3){
+                    // cancel payment and return to home
+                    home('');
+               } else {
+                    checkout('Invalid input ! 🙃');
+               }
+          })
+     }
 }
 
 //add product to cart --------Victor
@@ -103,11 +137,30 @@ function removedCartItem(msg){
 //payment card details --------Jerry
 function cardDetails(msg){
      header('ENTER YOUR ATM CARD DETAILS', msg)
+     console.log();
+     prompt.question("card details should be a combination of whole numbers b/w 5 - 10 characters : ", (options) => {
+          if(options == parseInt(options, 10)){
+               payConfirm('');
+          }  else {
+               cardDetails('Invalid input ! 🙃, Please Ensure Your card Details meets the rule');
+               console.log();
+          }
+     })
 }
 
 //payment Confirnmation --------Hope
 function payConfirm(msg){
      header('YOUR PAYMENT WAS SUCCESSFUL !', msg)
+     console.log("Would You like to make another purchase");
+     console.log("1","Yes")
+     console.log("2","No")
+     prompt.question("Please Select an option: ", (options) => {
+          if(options == 2){
+               header('Thank You', msg)
+          } else {
+               home('')
+          } 
+     })
 }
 
 home('');
