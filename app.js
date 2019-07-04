@@ -1,5 +1,5 @@
 //require the promt module and create interface
-const rl = require('readline').createInterface(process.stdin, process.stdout);
+const prompt = require('readline').createInterface(process.stdin, process.stdout);
 //require file system module
 const fs = require('fs')
 
@@ -16,40 +16,38 @@ const products = [
 const cart = [];
 
 //page header
-function header (title){
+function header (title, msg){
      console.clear();
      console.log("========================================================")
      console.log(title)
      console.log("========================================================")
      console.log();
+     console.log(msg)
 }
 
 //home page
 function home (msg){
-     header('WELCOME TO SHOPU - home')
-     console.log(msg)
+     header('WELCOME TO SHOPU - home', msg)
      console.log("1.", "View products");
      console.log("2.", "View cart");
      console.log("3.", "View checkout");
-     console.log("");
+     console.log();
      prompt.question("Please Select an option: ", (opt) => {
-               if(opt == 1){
-                    displayProducts();
-               }else if(opt == 2){
-                    displayCart();
-               }else if(opt == 3){
-                    checkout();
-               }else {
-                    home('Invalid input ! 🙃')
-               }      
-               process.exit();
-          }
-     );
+          if(opt == 1){
+               displayProducts('');
+          }else if(opt == 2){
+               displayCart('');
+          }else if(opt == 3){
+               checkout('');
+          }else {
+               home('Invalid input ! 🙃')
+          }      
+     });
 }
 
 //product page --------Mich
-function displayProducts (){
-     header('OUR PRODUCTS - list of available products')
+function displayProducts (msg){
+     header('OUR PRODUCTS - list of available products', msg)
      console.table(products)
      console.log();
      console.log("1.", "Add to cart");
@@ -59,58 +57,57 @@ function displayProducts (){
      console.log();
      prompt.question("Please Select an option ", (opt) => {
           if(opt == 1){
-               displayProducts();
+               displayProducts('');
           }else if(opt == 2){
-               displayCart();
+               displayCart('');
           }else if(opt == 3){
-               checkout();
+               checkout('');
           }else {
-               console.log("Invalid input")
-          }  
-          process.exit();
+               displayProducts("Invalid input ! 🙃")
+          }
      });
 }
 
 //cart page --------Mich
-function displayCart(){
-     header('YOUR CART')
+function displayCart(msg){
+     header('YOUR CART', msg)
+     console.table(cart);
 }
 
 //checkout page --------Jerry
-function checkout(){
-     header('CHECKOUT')
-     //nothingo
+function checkout(msg){
+     header('CHECKOUT', msg)
 }
 
 //add product to cart --------Victor
-function addToCart(){
-     header('ADD TO CART')
+function addToCart(msg){
+     header('ADD TO CART', msg)
 }
 
 //remove product from Cart --------Victor
-function removeFromCart(){
-     header('REMOVE FROM CART -  remove an item')
+function removeFromCart(msg){
+     header('REMOVE FROM CART -  remove an item', msg)
 }
 
 // cart product added successfuly --------Hope
 function addedCartItem(){
-     header('PRODUCT ADDED SUCCESSFULLY !')
+     header('PRODUCT ADDED SUCCESSFULLY !', msg)
 }
 
 // cart product removed successfuly --------Hope
-function removedCartItem(){
-     header('PRODUCT REMOVED SUCCESSFULLY !')
+function removedCartItem(msg){
+     header('PRODUCT REMOVED SUCCESSFULLY !', msg)
 }
 
 
 //payment card details --------Jerry
-function cardDetails(){
-     header('ENTER YOUR ATM CARD DETAILS')
+function cardDetails(msg){
+     header('ENTER YOUR ATM CARD DETAILS', msg)
 }
 
 //payment Confirnmation --------Hope
-function payConfirm(){
-     header('YOUR PAYMENT WAS SUCCESSFUL !')
+function payConfirm(msg){
+     header('YOUR PAYMENT WAS SUCCESSFUL !', msg)
 }
 
 home('');
