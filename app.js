@@ -56,9 +56,9 @@ function displayProducts(msg) {
      console.log("4.", "Go to Home");
      console.log();
      prompt.question("Please Select an option ", (opt) => {
-          if (opt == 1) {
-               displayProducts('');
-          } else if (opt == 2) {
+          if(opt == 1){
+               addToCart('');
+          }else if(opt == 2){
                displayCart('');
           } else if (opt == 3) {
                checkout('');
@@ -132,24 +132,61 @@ function checkout(msg){
 
 //add product to cart --------Victor
 function addToCart(msg) {
-     header('ADD TO CART', msg)
+     header('ADD TO CART', msg);
+     console.table(products);
+     console.log();
+
+     // This is a class that an object that holds the id and quantity
+     var  name, qty, u_price, a_price ; // the variable holding the name and the quantity
+     var cartItem = { // An Object where the name and quantity are held as properties
+          "name" : name, 
+          "qty" : qty, //The quantity the client wants 
+          "unit_price" : u_price, // The unit price of the product
+          "accum_price" : a_price // The accumulated price of each product
+     }
+
+     function getId(){ // Function that gets the it from the user. 
+          prompt.question("Enter product Id: ", (id)=>{
+               let i = parseInt(id);
+               cartItem.name = products[i -1].name ;
+               cartItem.unit_price = products[i -1].price;
+               getQty(i); // This function is called  here so that the prompt will not exit 
+          })
+     }
+     
+     function getQty(i){ // This function gets gets the quantity of the product from the user. 
+          prompt.question("Enter product Quantity: ", (qty)=>{ 
+               let j = parseInt(qty)
+               cartItem.qty = j;
+               cartItem.accum_price =  j * products[i - 1].price;
+               addedCartItem('');
+          })
+     }
+
+     getId(); // The Id is called here 
+
+     cart.push(cartItem); // This adds the cartItem object to the cart Array.
 }
 
 //remove product from Cart --------Victor
-function removeFromCart(msg) {
-     header('REMOVE FROM CART -  remove an item', msg)
+function removeFromCart(msg){
+     header('REMOVE FROM CART -  remove an item', msg);
+     prompt.question("Enter product Id: ", (id)=>{ // Ask the user the Id of the Product he/she wants to remove 
+          let i = parseInt(id); // to make it an integer 
+          cart.splice( (i - 1), 1); // This removes the element from the cart array.
+          removedCartItem(msg);
+     })
 }
 
 // cart product added successfuly --------Hope
-function addedCartItem() {
-     header('PRODUCT ADDED SUCCESSFULLY !', msg)
+function addedCartItem(msg) {
+     header('PRODUCT ADDED SUCCESSFULLY !', msg);
 }
 
 // cart product removed successfuly --------Hope
 function removedCartItem(msg) {
      header('PRODUCT REMOVED SUCCESSFULLY !', msg)
 }
-
 
 //payment card details --------Jerry
 function cardDetails(msg) {
