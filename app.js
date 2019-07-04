@@ -79,6 +79,7 @@ function displayCart(){
 //checkout page --------Jerry
 function checkout(){
      header('CHECKOUT')
+     //nothingo
 }
 
 //add product to cart --------Victor
