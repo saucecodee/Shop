@@ -57,7 +57,7 @@ function displayProducts (msg){
      console.log();
      prompt.question("Please Select an option ", (opt) => {
           if(opt == 1){
-               displayProducts('');
+               addToCart('');
           }else if(opt == 2){
                displayCart('');
           }else if(opt == 3){
@@ -82,15 +82,47 @@ function checkout(msg){
 //add product to cart --------Victor
 function addToCart(msg){
      header('ADD TO CART', msg)
+
+     // This is a class that an object that holds the id and quantity
+     var  name, qty; // the variable holding the name and the quantity
+     var cartItem = { // An Object where the name and quantity are held as properties
+          "name" : name, 
+          "qty" : qty
+     }
+
+     function getId(){ // Function that gets the it from the user. 
+          prompt.question("Enter product Id: ", (id)=>{
+               let i = parseInt(id);
+               cartItem.name = products[i + 1].name ;
+               getQty(); // This function is called  here so that the prompt will not exit 
+          })
+     }
+     
+     function getQty(){ // This function gets gets the quantity of the product from the user. 
+          prompt.question("Enter product Quantity: ", (qty)=>{
+               cartItem.qty = qty;
+               addedCartItem('');
+          })
+     }
+
+     getId(); // The Id is called here 
+
+     cart.push(cartItem); // This adds the cartItem object to the cart Array.
 }
 
 //remove product from Cart --------Victor
 function removeFromCart(msg){
-     header('REMOVE FROM CART -  remove an item', msg)
+     header('REMOVE FROM CART -  remove an item', msg);
+     prompt.question("Enter product Id: ", (id)=>{ // Ask the user the Id of the Product he/she wants to remove 
+          let i = parseInt(id);
+          cart.splice( (i + 1), 1); // This removes the element from the cart array.
+     })
+     removedCartItem(msg)
+
 }
 
 // cart product added successfuly --------Hope
-function addedCartItem(){
+function addedCartItem(msg){
      header('PRODUCT ADDED SUCCESSFULLY !', msg)
 }
 
