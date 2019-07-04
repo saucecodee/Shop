@@ -27,7 +27,7 @@ function header(title, msg) {
 
 //home page
 function home(msg) {
-     header('WELCOME TO SHOPU - home', msg)
+     header('WELCOME TO SHOPU - home', msg);
      console.log("1.", "View products");
      console.log("2.", "View cart");
      console.log("3.", "View checkout");
@@ -71,12 +71,12 @@ function displayProducts(msg) {
 //cart page --------Mich
 function displayCart(msg) {
      header('YOUR CART', msg)
-     console.table(cart);
+     console.table(cart); //displays cart array
      console.log();
-     console.log("1.", "Go to products");
-     console.log("2.", "Add to cart");
-     console.log("3.", "View checkout");
-     console.log("4.", "Go to Home");
+     console.log("1.", "Go to products"); //display 'product' option
+     console.log("2.", "Add to cart"); //display 'cart' option
+     console.log("3.", "View checkout"); //display 'checkout' option
+     console.log("4.", "Go to Home"); //display 'home' option
      console.log();
      prompt.question("Please Select an option ", (opt) => {
           if (opt == 1) {
@@ -90,7 +90,7 @@ function displayCart(msg) {
           } else {
                displayProducts("Invalid input ! 🙃")
           }
-     });
+     }); 
 }
 
 //checkout page --------Jerry
