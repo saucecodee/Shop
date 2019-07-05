@@ -300,6 +300,9 @@ function checkout(msg) {
           });
           console.log(table.toString());//displays cart array
 
+          var t_price = cart.map((ca)=> ca.accum_price).reduce((a,b) =>  a + b);
+          console.log("TOTAL: ", t_price)
+
           console.log("1", "Proceed to make payment")
           console.log("2", "Go Back to Cart")
           console.log("3", "Cancel payment and Return Home")
@@ -310,7 +313,7 @@ function checkout(msg) {
                     cardDetails('');
                } else if (options == 2) {
                     //Go back to cart to add to cart
-                    displayProducts('');
+                    displayCart('');
                } else if (options == 3) {
                     // cancel payment and return to home
                     home('');
@@ -324,7 +327,7 @@ function checkout(msg) {
 //========== payment card details ========== (Jerry)
 function cardDetails(msg) {
      header('SECURE PAYMENT', msg)
-     prompt.question("Enter your card number (5-10 characters): ", (options) => {
+     prompt.question("Enter your card number: ", (options) => {
           if (options == parseInt(options)) {
                payConfirm('YOUR PAYMENT WAS SUCCESSFUL !'.cyan);
                cart = [];
@@ -381,7 +384,7 @@ function payConfirm(msg) {
           } else if (options == 2) {
                console.clear();
           } else {
-               payConfirm("");
+               payConfirm("PLEASE ENTER A VALID INPUT" .cyan);
           }
      })
 }
